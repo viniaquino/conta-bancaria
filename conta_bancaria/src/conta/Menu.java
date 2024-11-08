@@ -2,25 +2,33 @@ package conta;
 
 import java.util.Scanner;
 import conta.model.Conta;
+import conta.model.ContaCorrente;
+import conta.model.ContaPoupanca;
 import conta.util.Cores;
 
 public class Menu {
 	public static void main(String[] args) {
 
-		Conta c1 = new Conta(1, 123, 1, "Adriana", 10000.0f);
-		c1.visualizar();
-		c1.sacar(12000.0f);
-		c1.visualizar();
-		c1.depositar(5000.0f);
-		c1.visualizar();
-		
+		ContaCorrente cc1 = new ContaCorrente(2, 123, 1, "Mariana", 15000.0f, 1000.0f);
+		cc1.visualizar();
+		cc1.sacar(12000.0f);
+		cc1.visualizar();
+		cc1.depositar(5000.0f);
+		cc1.visualizar();
+
+		ContaPoupanca cp1 = new ContaPoupanca(3, 123, 3, "Victor", 100000.0f, 15);
+		cp1.visualizar();
+		cp1.sacar(1000.0f);
+		cp1.visualizar();
+		cp1.depositar(5000.0f);
+		cp1.visualizar();
+
 		Scanner scanner = new Scanner(System.in);
 		int opcao;
-		
-		
+
 		while (true) {
-			System.out.println(Cores.TEXT_YELLOW + Cores.ANSI_BLACK_BACKGROUND 
-					         + "********************************************************************");
+			System.out.println(Cores.TEXT_YELLOW + Cores.ANSI_BLACK_BACKGROUND
+					+ "********************************************************************");
 			System.out.println("                                                                    ");
 			System.out.println("                      BANCO DO BRAZIL COM Z                         ");
 			System.out.println("                                                                    ");
@@ -95,11 +103,11 @@ public class Menu {
 				System.out.println(Cores.TEXT_RED_BOLD + "\nOpção Inválida\n");
 				break;
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	public static void sobre() {
 		System.out.println("********************************************************************");
 		System.out.println("Projeto Desenvolvido por: Vinícius Aquino");
@@ -108,4 +116,3 @@ public class Menu {
 		System.out.println("********************************************************************");
 	}
 }
-
