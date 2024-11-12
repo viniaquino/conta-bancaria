@@ -80,17 +80,14 @@ public abstract class Conta {
 		case 2:
 			tipo = "Conta Poupança";
 			break;
-
-		default:
-			break;
 		}
 		
-		System.out.println("\n\n***************************************************************************");
+		System.out.println("\n\n*******************************************************************************");
 		System.out.println("Dados da Conta");
 		System.out.println("*******************************************************************************");
 		System.out.println("Numero da Conta: " + this.numero);
 		System.out.println("Agência: " + this.agencia);
-		System.out.println("Tipo da Conta: " + this.tipo);
+		System.out.println("Tipo da Conta: " + tipo);
 		System.out.println("Titular: " + this.titular);
 		System.out.println("Saldo: " + this.saldo);
 	}
