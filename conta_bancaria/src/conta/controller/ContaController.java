@@ -2,6 +2,8 @@ package conta.controller;
 
 import java.util.ArrayList;
 
+import conta.exception.ContaInexistenteException;
+import conta.exception.SaldoInsuficienteException;
 import conta.model.Conta;
 import conta.repository.ContaRepository;
 
@@ -32,6 +34,10 @@ public class ContaController implements ContaRepository {
 
 	@Override
 	public void cadastrar(Conta conta) {
+		if (conta.getSaldo() < 0) {
+			throw new IllegalArgumentException("\nO saldo inicial da conta não pode ser negativo!");
+		}
+		
 		listaContas.add(conta);
 		System.out.println("\nA Conta número: " + conta.getNumero() + " foi criada com sucesso!");
 	}
@@ -70,10 +76,10 @@ public class ContaController implements ContaRepository {
 	        if (conta.sacar(valor)) {
 	            System.out.println("\nO Saque na Conta numero: " + numero + " foi efetuado com sucesso!");
 	        } else {
-	            System.out.println("\nSaldo insuficiente para realizar o saque!");
+	            throw new SaldoInsuficienteException("\nNão foi possível realizar o saque!");
 	        }
 	    } else {
-	        System.out.println("\nA Conta numero: " + numero + " não foi encontrada!");
+	        throw new ContaInexistenteException("\nA Conta numero: " + numero + " não foi encontrada!");
 	    }
 		
 	}
@@ -86,7 +92,7 @@ public class ContaController implements ContaRepository {
 			conta.depositar(valor);
 			System.out.println("\nO Depósito na Conta numero: " + numero + " foi efetuado com sucesso!");
 		} else {
-			System.out.println("\nA Conta numero: " + numero + " não foi encontrada ou a "
+			throw new ContaInexistenteException("\nA Conta numero: " + numero + " não foi encontrada ou a "
 					+ "Conta destino não é uma Conta Corrente!");
 		}
 		
@@ -101,9 +107,11 @@ public class ContaController implements ContaRepository {
 			if (contaOrigem.sacar(valor) == true) {
 				contaDestino.depositar(valor);
 				System.out.println("\nA Transferência foi efetuada com sucesso!");
+			} else {
+				throw new SaldoInsuficienteException("\nSaldo insuficiente na conta de origem para a transferência.");
 			}
 		} else {
-			System.out.println("\nA Conta de Origem e/ou Destino não foram encontradas!");
+			throw new ContaInexistenteException("\nA Conta de Origem e/ou Destino não foram encontradas!");
 		}
 	}
 	
